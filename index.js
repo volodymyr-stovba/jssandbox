@@ -1,7 +1,15 @@
-"use strict";
-
 function Log(message) {
   console.log(message);
+}
+
+function LogError(errorMessage) {
+  console.log(errorMessage);
+}
+
+function LogErrorWithStack(errorMessage) {
+  var stack = new Error().stack;
+  console.log(errorMessage);
+  console.log(stack);
 }
 
 function ShowMessage(message) {
@@ -39,11 +47,26 @@ function PrintOperations() {
   Log(null + 1);
   Log(undefined + 1);
   Log(" \t \n" - 2);
+  throw new SyntaxError(PrintOperations.name + ": just exception !");
 }
 
-function main() {
+function main_main() {
   console.clear();
   PrintTypes();
   Log("!!!!!!!!!!!PrintOperations!!!!!!!!!!!!!!");
   PrintOperations();
+}
+import { array_main } from "arrays.js";
+function main() {
+  try {
+    try {
+      //main_main();
+      alert(typeof array_main());
+      alert("asa");
+    } catch (err) {
+      LogError(err.message);
+    }
+  } catch {
+    LogError("Unhandled!!!");
+  }
 }
